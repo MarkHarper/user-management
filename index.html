@@ -1,0 +1,74 @@
+<style>
+* { box-sizing: border-box; }
+
+
+.container {
+ padding:2em;
+}
+
+
+/* input styles */
+.form-container {
+  float:left;
+   border:1px solid #ccc;
+}
+
+.form-container form {
+
+}
+
+input {
+ display:block;
+ margin:1em;
+ height:4em;
+ width:600px;
+ padding:0.5em;
+
+}
+
+.submit-button {
+ float:right;
+ margin-right:1em;
+ margin-bottom:1em;
+}
+
+
+/* output styles  */
+.display-container {
+  float:right;
+  min-width:500px;
+  min-height:400px;
+ border:1px solid #ccc;
+}
+
+.todo-list {
+
+}
+</style>
+
+
+<div class="container">
+
+
+  <div class="form-container">
+    <form>
+      <input type="text" name="firstName" placeholder="First Name" />
+      <input type="text" name="lastName" placeholder="Last Name" />
+      <input type="text" name="email" placeholder="Email" />
+      <button class="submit-button">Submit</button>
+    </form>
+
+  </div>
+
+
+
+  <div class="display-container">
+    <ul class="todo-list">
+
+    </ul>
+
+
+
+  </div>
+
+</div>
