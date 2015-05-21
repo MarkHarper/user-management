@@ -31,6 +31,16 @@ $('form').submit(function(e) {
 
 // display user on page
 $('form').submit(function(e) {
+  var userName = usersArray[usersArray.length-1]['first']+' '+ usersArray[usersArray.length-1]['last'];
+  var userEmail = usersArray[usersArray.length-1]['email'];
 
-
+  var listUser = $('<li>').append('<span class="name">'+userName+'</span><span class="email">'+userEmail+'</span>');
+  $('#todo-list').append(listUser);
 });
+
+/*
+<li class="user">
+  <span class="name"></span>
+  <span class="email"></span>
+</li>
+*/
