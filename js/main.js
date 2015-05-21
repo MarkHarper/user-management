@@ -11,12 +11,42 @@ $('form').submit(function(e) {
  var first = $('#firstName').val();
  var last = $('#lastName').val();
  var email = $('#email').val();
- var user = { first, last, email }; // what's happening here?
+ var user = { firstNameKey: first, lastNameKey: last, emailKey: email }; // what's happening here?
 
+ if (first === "" || last === "" || email === "") {
+     return alert("Please fill out all fields.");
+ }
  usersArray.push(user);
  // console.log(usersArray[1]);
 
 });
+
+
+
+
+
+
+// display user on page
+$('form').submit(function(e) {
+
+
+  var first = $('#firstName').val();
+  var last = $('#lastName').val();
+  var email = $('#email').val();
+
+  if (first === "" || last === "" || email === "") {
+      return alert("Please fill out all fields.");
+  }
+
+  var userName = usersArray[usersArray.length-1].firstNameKey +' '+ usersArray[usersArray.length-1].lastNameKey;
+  var userEmail = usersArray[usersArray.length-1].emailKey;
+
+  var listUser = $('<li>').append('<span class="name">'+userName+'</span><span class="email">'+userEmail+'</span>');
+  $('#todo-list').append(listUser);
+
+
+});
+
 
 
 
@@ -28,15 +58,6 @@ $('form').submit(function(e) {
 });
 
 
-
-// display user on page
-$('form').submit(function(e) {
-  var userName = usersArray[usersArray.length-1]['first']+' '+ usersArray[usersArray.length-1]['last'];
-  var userEmail = usersArray[usersArray.length-1]['email'];
-
-  var listUser = $('<li>').append('<span class="name">'+userName+'</span><span class="email">'+userEmail+'</span>');
-  $('#todo-list').append(listUser);
-});
 
 /*
 <li class="user">
