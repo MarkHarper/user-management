@@ -1,17 +1,21 @@
 
 
 
-// write code that changes background color of UL to none if it's empty
-// OR changes backcolor of UL to 0,0,0,.3 if it's not empty
-// if LI exists on page, then $('ul').css = (background, 0,0,0,.3)
-
-
-
 
 
 
 var usersArray = []; // must declare outside of the scope of the function below
 
+
+function init () {
+  $.each(localStorage, function (i, obj) {
+  usersArray.push(JSON.parse(localStorage.getItem(i)));
+  });
+}
+
+if (localStorage!=='') {
+    init();
+}
 
 // add form submissions as hashes to an array
 $('form').submit(function(e) {
@@ -28,10 +32,8 @@ $('form').submit(function(e) {
  }
  usersArray.push(user);
  // console.log(usersArray[1]);
-
- $('.close-item').click(function (e) {
-   var indexOfClick = this;
-   usersArray.splice(indexOfClick,1);
+ $.each(usersArray, function (i, obj) {
+   localStorage.setItem(i,JSON.stringify(usersArray[i]));
  });
 });
 
@@ -54,7 +56,7 @@ $('form').submit(function(e) {
 
   var userName = usersArray[usersArray.length-1].firstNameKey +' '+ usersArray[usersArray.length-1].lastNameKey;
   var userEmail = usersArray[usersArray.length-1].emailKey;
-
+ 
   var listUser = $('<li class="list-item">').append('<span class="name">'+userName+'</span><span class="close-item"> X </span><span class="email">'+userEmail+'</span>');
   $('#todo-list').append(listUser);
 
@@ -100,6 +102,7 @@ $('.close-item').click(function (e) {
     }
   }
 });
+
 
 /*
 <li class="user">
