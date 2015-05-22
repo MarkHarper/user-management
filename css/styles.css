@@ -33,12 +33,21 @@ body {
 
 
 /* input styles */
+
+h1 {
+  color:#fff;
+  text-align: center;
+  letter-spacing:0.2em;
+  padding:.2em 0;
+  margin: .2em 0;
+  font-weight:bold;
+}
 .form-container {
   float:left;
-  background:#fff;
-  border:1px solid #ccc;
+  background-color:rgba(0,0,0,.3);
   border-radius:.2em;
-  margin-bottom:2em;
+  margin:0 0 2em 0;
+  padding:0.5em;
 }
 
 .form-container form {
@@ -47,35 +56,32 @@ body {
 
 input {
  display:block;
- margin:.5em;
+ margin:0em;
  height:4em;
  width:400px;
  padding:0.5em;
  font-size:1.5em;
-
-
+ margin-bottom:0.5em;
 }
 
 .submit-button {
  /*float:right;*/
  font-size:1em;
-
- margin-left:1em;
  padding:1em;
- background-color:none;
- background:none;
+ background:#fff;
  border:1px solid #ccc;
  border-radius:5px;
- margin-right:1em;
- margin-bottom:1em;
-
+ width:100%;
 }
 
+
+
 button:hover {
-  background-color:#ededed;
-  background:#ededed;
-  color:#404040;
+  background-color:#404040;
+  background:#404040;
+  color:#fff;
   cursor:pointer;
+  font-weight:bold;
 
  }
 
@@ -150,13 +156,12 @@ input {
 .form-container {
   float:none;
   max-width:600px;
+  text-align:center;
 }
 
 
 .submit-button {
- float:none;
- margin:1em;
- padding:.5em;
+ margin-top:0.5em;
  }
 
 .display-container {
@@ -174,7 +179,8 @@ input {
 
 }
 
-form { margin-bottom: 2em;}
+form {
+}
 
 input {
   max-width:100%;
