@@ -51,7 +51,7 @@ $('form').submit(function(e) {
   var userName = usersArray[usersArray.length-1].firstNameKey +' '+ usersArray[usersArray.length-1].lastNameKey;
   var userEmail = usersArray[usersArray.length-1].emailKey;
 
-  var listUser = $('<li class="list-item">').append('<span class="name">'+userName+'</span><span class="email">'+userEmail+'</span>');
+  var listUser = $('<li class="list-item">').append('<span class="name">'+userName+'</span><span class="close-item"> X </span><span class="email">'+userEmail+'</span>');
   $('#todo-list').append(listUser);
 
 

@@ -125,6 +125,7 @@ ul li {
   border:1px solid #ccc;
   background:#fff;
   color:#404040;
+  position:relative;
 
 
 
@@ -136,10 +137,33 @@ ul li {
 
 .email {
   float:right;
+  margin-right:2em;
 }
 
 
+.close-item {
+  float:right;
+  border-radius:.3em;
+  padding:.5em;
+  color:#404040;
+  background:#fff;
+  position:absolute;
+  top:18px;
+  right:10px;
+  border:2px solid #ccc;
+  margin-left:1em;
+  font-size:0.5em;
+  opacity:50;
+}
 
+.close-item:hover {
+  cursor: pointer;
+  color:#fff;
+  background:rgba(0,0,0,.3);
+  opacity:100
+
+
+}
 
 
 
