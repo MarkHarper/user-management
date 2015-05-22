@@ -29,6 +29,10 @@ $('form').submit(function(e) {
  usersArray.push(user);
  // console.log(usersArray[1]);
 
+ $('.close-item').click(function (e) {
+   var indexOfClick = this;
+   usersArray.splice(indexOfClick,1);
+ });
 });
 
 
@@ -54,7 +58,16 @@ $('form').submit(function(e) {
   var listUser = $('<li class="list-item">').append('<span class="name">'+userName+'</span><span class="close-item"> X </span><span class="email">'+userEmail+'</span>');
   $('#todo-list').append(listUser);
 
+  //Removes Li element of user set for deletion (created users)
+  $('.close-item').click(function (e) {
+    $(e.target).closest('li').remove();
+  });
 
+  //Finds email for created users upon clicking delete button
+  $('.close-item').click(function (e) {
+    var userToDelete = $(e.target).next('.email').text();
+  });
+  console.log(usersArray);
 });
 
 
@@ -68,6 +81,17 @@ $('form').submit(function(e) {
 });
 
 
+//Removes Li element of user set for deletion (hardcoded users)
+$('.close-item').click(function (e) {
+  $(e.target).closest('li').remove();
+});
+
+console.log(usersArray);
+
+//Finds email for hardcoded users upon clicking delete button
+$('.close-item').click(function (e) {
+  var userToDelete = $(e.target).next('.email').text();
+});
 
 /*
 <li class="user">
