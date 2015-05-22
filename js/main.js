@@ -66,8 +66,12 @@ $('form').submit(function(e) {
   //Finds email for created users upon clicking delete button
   $('.close-item').click(function (e) {
     var userToDelete = $(e.target).next('.email').text();
+    $.each(usersArray, function (i, obj) {
+      if (obj.emailKey==userToDelete) {
+        usersArray.splice(i,1);
+      }
+    });
   });
-  console.log(usersArray);
 });
 
 
@@ -86,11 +90,15 @@ $('.close-item').click(function (e) {
   $(e.target).closest('li').remove();
 });
 
-console.log(usersArray);
 
 //Finds email for hardcoded users upon clicking delete button
 $('.close-item').click(function (e) {
   var userToDelete = $(e.target).next('.email').text();
+  for (var i = 0; i<usersArray.length; i++) {
+    if (userToDelete==usersArray[i].emailKey) {
+      usersArray.splice(i,1);
+    }
+  }
 });
 
 /*
