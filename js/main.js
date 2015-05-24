@@ -7,6 +7,24 @@
 var usersArray = []; // must declare outside of the scope of the function below
 
 
+//Creates html from user data
+function usersToList (array) {
+  $.each(array, function (i, obj) {
+   var name = array[i].firstNameKey + ' ' + array[i].lastNameKey;
+   var listUser = $('<li class="list-item">').append('<span class="name">'+name+'</span><span class="close-item"> X </span><span class="email">'+array[i].emailKey+'</span>');
+  $('#todo-list').append(listUser);
+  });
+}
+
+//Removes user from storage by matching email
+function deleteFromStorage (emailForDeletion) {
+  $.each(localStorage, function (i, obj) {
+    if (JSON.parse(localStorage.getItem(i))['emailKey']==emailForDeletion) {
+        localStorage.removeItem(i);
+    }
+  });
+}
+
 function init () {
   $.each(localStorage, function (i, obj) {
   usersArray.push(JSON.parse(localStorage.getItem(i)));
@@ -45,7 +63,7 @@ $('form').submit(function(e) {
 // display user on page
 $('form').submit(function(e) {
 
-
+  console.log(usersArray);
   var first = $('#firstName').val();
   var last = $('#lastName').val();
   var email = $('#email').val();
@@ -54,11 +72,8 @@ $('form').submit(function(e) {
       return alert("Please fill out all fields.");
   }
 
-  var userName = usersArray[usersArray.length-1].firstNameKey +' '+ usersArray[usersArray.length-1].lastNameKey;
-  var userEmail = usersArray[usersArray.length-1].emailKey;
- 
-  var listUser = $('<li class="list-item">').append('<span class="name">'+userName+'</span><span class="close-item"> X </span><span class="email">'+userEmail+'</span>');
-  $('#todo-list').append(listUser);
+// Creates html from user data
+  usersToList(usersArray);
 
   //Removes Li element of user set for deletion (created users)
   $('.close-item').click(function (e) {
@@ -73,6 +88,8 @@ $('form').submit(function(e) {
         usersArray.splice(i,1);
       }
     });
+    //Removes user from storage by matching email
+    deleteFromStorage($(e.target).next('.email').text());
   });
 });
 
