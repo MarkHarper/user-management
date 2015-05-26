@@ -1,13 +1,5 @@
 
-
-
-
-
-
-var usersArray = []; // must declare outside of the scope of the function below
-
-
-//Creates html from user data
+//Creates html from user information in usersArray
 function usersToList (array) {
   $.each(array, function (i, obj) {
    var name = array[i].firstNameKey + ' ' + array[i].lastNameKey;
@@ -16,7 +8,7 @@ function usersToList (array) {
   });
 }
 
-//Removes user from storage by matching email
+//Deletes selected user from localStorage
 function deleteFromStorage (emailForDeletion) {
   $.each(localStorage, function (i, obj) {
     if (JSON.parse(localStorage.getItem(i))['emailKey']==emailForDeletion) {
@@ -25,105 +17,109 @@ function deleteFromStorage (emailForDeletion) {
   });
 }
 
+//Pulls users from localstorage and builds html
 function init () {
   $.each(localStorage, function (i, obj) {
   usersArray.push(JSON.parse(localStorage.getItem(i)));
   });
+  usersToList(usersArray);
 }
 
-if (localStorage!=='') {
-    init();
+//stores form input in localstorage
+function inputToJSON () {
+  $.each(usersArray, function (i, obj) {
+    localStorage.setItem(i,JSON.stringify(usersArray[i]));
+  });
 }
 
-// add form submissions as hashes to an array
+//removes html list items
+function removeLiElement (event) {
+  $(event.target).closest('li').remove();
+}
+
+//find the email of the user that must be deleted
+function userEmailToDelete (event) {
+  var userToDelete = $(event.target).next('.email').text();
+  return userToDelete;
+}
+
+//Removes correct user from usersArray
+function removeFromArray (email) {
+  for (var i = 0; i < usersArray.length; i++) {
+    if (usersArray[i].emailKey==email) {
+      usersArray.splice(i,1);
+    }
+  }
+}
+
+//Clears Ul element to load users from localStorage
+function clearUl () {
+  $('ul li').remove();
+}
+
+//Clears form elements
+function clearForm () {
+  document.querySelector('#firstName').value = '';
+  document.querySelector('#lastName').value = '';
+  document.querySelector('#email').value = '';
+}
+
+//Runs init function unless localstorage is empty
+function onPageLoad () {
+  console.log(localStorage.key);
+  if (localStorage.key==null) {
+      return;
+    }
+  else {
+      init();
+    }
+  }
+
+var usersArray = [];
+
+onPageLoad();
+
 $('form').submit(function(e) {
+
  e.stopPropagation();
  e.preventDefault();
 
  var first = $('#firstName').val();
  var last = $('#lastName').val();
  var email = $('#email').val();
- var user = { firstNameKey: first, lastNameKey: last, emailKey: email }; // what's happening here?
+ var user = { firstNameKey: first, lastNameKey: last, emailKey: email };
 
  if (first === "" || last === "" || email === "") {
      return alert("Please fill out all fields.");
  }
+
  usersArray.push(user);
- // console.log(usersArray[1]);
- $.each(usersArray, function (i, obj) {
-   localStorage.setItem(i,JSON.stringify(usersArray[i]));
- });
-});
 
+ inputToJSON();
 
+ clearForm();
 
+ clearUl();
 
+ usersToList(usersArray);
 
+ //For removing users that were created during the current session
+ $('.close-item').click(function (e) {
 
-// display user on page
-$('form').submit(function(e) {
+  removeLiElement(e);
 
-  console.log(usersArray);
-  var first = $('#firstName').val();
-  var last = $('#lastName').val();
-  var email = $('#email').val();
+  removeFromArray(userEmailToDelete(e));
 
-  if (first === "" || last === "" || email === "") {
-      return alert("Please fill out all fields.");
-  }
-
-// Creates html from user data
-  usersToList(usersArray);
-
-  //Removes Li element of user set for deletion (created users)
-  $('.close-item').click(function (e) {
-    $(e.target).closest('li').remove();
-  });
-
-  //Finds email for created users upon clicking delete button
-  $('.close-item').click(function (e) {
-    var userToDelete = $(e.target).next('.email').text();
-    $.each(usersArray, function (i, obj) {
-      if (obj.emailKey==userToDelete) {
-        usersArray.splice(i,1);
-      }
-    });
-    //Removes user from storage by matching email
-    deleteFromStorage($(e.target).next('.email').text());
+  deleteFromStorage($(e.target).next('.email').text());
   });
 });
 
-
-
-
-// clear form inputs
-$('form').submit(function(e) {
-  document.querySelector('#firstName').value = '';
-  document.querySelector('#lastName').value = '';
-  document.querySelector('#email').value = '';
-});
-
-
-//Removes Li element of user set for deletion (hardcoded users)
+//For removing users after a refresh
 $('.close-item').click(function (e) {
-  $(e.target).closest('li').remove();
+
+  removeLiElement(e);
+
+  removeFromArray(userEmailToDelete(e));
+
+  deleteFromStorage($(e.target).next('.email').text());
 });
-
-
-//Finds email for hardcoded users upon clicking delete button
-$('.close-item').click(function (e) {
-  var userToDelete = $(e.target).next('.email').text();
-  for (var i = 0; i<usersArray.length; i++) {
-    if (userToDelete==usersArray[i].emailKey) {
-      usersArray.splice(i,1);
-    }
-  }
-});
-
-
-/*
-<li class="user">
-  <span class="name"></span>
-  <span class="email"></span>
-</li>
-*/
